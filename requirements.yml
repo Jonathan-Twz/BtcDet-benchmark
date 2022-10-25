@@ -1,0 +1,12 @@
+name: btcdet
+dependencies:
+  - python=3.8
+  - numpy
+  - numba
+  - tensorboardX
+  - pyyaml
+  - scikit-image
+  - tqdm
+  - pip
+  - pip :
+    - easydict

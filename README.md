@@ -50,6 +50,15 @@ b. Install the dependent libraries as follows:
 pip install -r requirements.txt 
 ```
 
+if using conda, using:
+```
+conda install -f requirement.yml
+conda install pytorch  cudatoolkit=11.6 -c pytorch -c conda-forge
+```
+
+follow this link to install `cudnn`
+[https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html](https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html)
+
 * Install the SparseConv library, we use the implementation from [`[spconv]`](https://github.com/traveller59/spconv). 
     * The very recent spconv 2.+ has significant interface changes and some issues in operators. Therefore, we do not support it for now.
     * If you use PyTorch 1.1, then make sure you install the `spconv v1.0` with ([commit 8da6f96](https://github.com/traveller59/spconv/tree/8da6f967fb9a054d8870c3515b1b44eca2103634)) instead of the latest one.
@@ -62,7 +71,9 @@ pip install -r requirements.txt
     sudo apt-get install libboost-all-dev
     
     python setup.py bdist_wheel
-    
+
+    (if having problems about THC/THCNumerics, see this repo: https://github.com/traveller59/spconv/issues/464)
+
     cd ./dist 
     ```
     Inside the `dist` directory, use pip to install generated whl file.
