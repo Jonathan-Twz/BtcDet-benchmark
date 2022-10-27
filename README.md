@@ -53,7 +53,7 @@ pip install -r requirements.txt
 if using conda, using:
 ```
 conda install -f requirement.yml
-conda install pytorch  cudatoolkit=11.6 -c pytorch -c conda-forge
+conda install pytorch==1.10.1 torchvision==0.11.2 torchaudio==0.10.1 cudatoolkit=11.3 -c pytorch -c conda-forge
 ```
 
 follow this link to install `cudnn`
