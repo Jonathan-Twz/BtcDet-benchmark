@@ -13,7 +13,7 @@ import pickle
 sys.path.append('../../btcdet/')
 from utils import coords_utils
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '3'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 # import tensorflow.compat.v1 as tf
 # tf.enable_eager_execution()
 
@@ -196,7 +196,7 @@ def main():
     keys = ["gt_points"]
     # keys = ["gt_points", 'occ_center']
     # keys = ["gt_points", "general_cls_loss_center"] # gt_points
-    # keys = ["gt_points", "fore_gt_center"] # gt_points
+    keys = ["gt_points", "fore_gt_center"] # gt_points
     # keys = ["gt_points", "bmvoxel_center"] # gt_points
 
     voxel_point_keys = ["occ_pos_center"] # gt_points

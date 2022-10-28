@@ -307,6 +307,8 @@ def absxyz_2_spherexyz_np(points):
 
 def draw_spherical_voxels(point_xyz, color, opacity, draw_origin=True):
 
+    if not point_xyz:
+        return
     if not isinstance(point_xyz, np.ndarray):
         point_xyz = point_xyz.cpu().numpy()
     offset = np.array([-1.43, 0.0, -2.184])

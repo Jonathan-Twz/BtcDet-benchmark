@@ -158,3 +158,9 @@ Multi gpu testing a specific checkpoint, assuming you have 4 gpus and checkpoint
 ```
 bash scripts/dist_test.sh 4  --cfg_file ./cfgs/model_configs/btcdet_kitti_car.yaml --gpu_str "0,1,2,3" --batch_size 8 --output_dir ../output/kitti_car/ --ckpt  ../output/kitti_car/ckpt/checkpoint_epoch_39.pth
 ```
+
+## Run viz:
+run this under folder `${dir}/tools/visual_utils`
+```
+python visualize_pc.py --pc ../../output/kitti_car/eval/eval_all_default/default/cloud/{npy filename}.npy
+```

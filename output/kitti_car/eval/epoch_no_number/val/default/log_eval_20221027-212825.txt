@@ -1,0 +1,6 @@
+2022-10-27 21:28:25,891   INFO  **********************Start logging**********************
+2022-10-27 21:28:25,891   INFO  CUDA_VISIBLE_DEVICES=0
+2022-10-27 21:28:25,994   INFO  Database filter by min points Car: 14357 => 13532
+2022-10-27 21:28:26,005   INFO  Database filter by difficulty Car: 13532 => 10759
+2022-10-27 21:28:26,073   INFO  Loading KITTI dataset
+2022-10-27 21:28:26,140   INFO  Total samples for KITTI dataset: 3769
