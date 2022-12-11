@@ -1,3 +1,4 @@
+from zmq import MAX_MSGSZ
 import mayavi.mlab as mlab
 import numpy as np
 import torch
@@ -71,17 +72,23 @@ def boxes_to_corners_3d(boxes3d):
 
 def visualize_pts(pts, fig=None, bgcolor=(0, 0, 0), fgcolor=(1.0, 1.0, 1.0),
                   show_intensity=False, size=(1200, 1200), draw_origin=False, scale=1.0, mode="sphere"):
-    if not isinstance(pts, np.ndarray):
+    if pts is not None and not isinstance(pts, np.ndarray):
         pts = pts.cpu().numpy()
     if fig is None:
         fig = mlab.figure(figure=None, bgcolor=bgcolor, fgcolor=None, engine=None, size=size)
 
     if show_intensity:
-        G = mlab.points3d(pts[:, 0], pts[:, 1], pts[:, 2], pts[:, 3], mode=mode,
+        try:
+            G = mlab.points3d(pts[:, 0], pts[:, 1], pts[:, 2], pts[:, 3], mode=mode,
                           colormap='gnuplot', scale_factor=scale, figure=fig)
+        except:
+            pass
     else:
-        G = mlab.points3d(pts[:, 0], pts[:, 1], pts[:, 2], mode='sphere', color=fgcolor,
+        try:
+            G = mlab.points3d(pts[:, 0], pts[:, 1], pts[:, 2], mode='sphere', color=fgcolor,
                           colormap='gnuplot', scale_factor=scale, figure=fig)
+        except:
+            pass
 
     if draw_origin:
         mlab.points3d(0, 0, 0, color=(1, 1, 1), mode='cube', scale_factor=0.2)
@@ -172,7 +179,7 @@ def draw_scenes(points, gt_boxes=None, ref_boxes=None, ref_scores=None, ref_labe
 
 def draw_scenes_multi(points_lst, colors_lst, scales_lst, mode_lst, gt_boxes=None, aug_boxes=None, ref_boxes=None, ref_scores=None, ref_labels=None, ref_ious=None, bgcolor=(1,1,1), voxelpnts_lst=[], voxelpnts_colors_lst=[], voxelpnts_op_lst=[], axis=False):
     for points in points_lst:
-        if not isinstance(points, np.ndarray):
+        if points is not None and not isinstance(points, np.ndarray):
             points = points.cpu().numpy()
     if ref_boxes is not None and not isinstance(ref_boxes, np.ndarray):
         ref_boxes = ref_boxes.cpu().numpy()
@@ -197,7 +204,7 @@ def draw_scenes_multi(points_lst, colors_lst, scales_lst, mode_lst, gt_boxes=Non
         draw_spherical_voxels(voxelpnts, voxelpnts_colors, opacity)
 
     for pts, clr, scale, mode in zip(points_lst, colors_lst, scales_lst, mode_lst):
-        print(pts.shape, clr, scale, mode)
+        # print(pts.shape, clr, scale, mode)
         fig = visualize_pts(pts, fig=fig, fgcolor=clr, scale=scale, mode=mode)
     # fig = draw_multi_grid_range(fig, bv_range=(0, -40, 80, 40))
     if gt_boxes is not None:
@@ -205,7 +212,8 @@ def draw_scenes_multi(points_lst, colors_lst, scales_lst, mode_lst, gt_boxes=Non
         fig = draw_corners3d(corners3d, fig=fig, color=(0.2, 0.6, 0.8), max_num=100)
     if aug_boxes is not None:
         corners3d_aug = boxes_to_corners_3d(aug_boxes)
-        fig = draw_corners3d(corners3d_aug, fig=fig, color=(0, 1, 1), max_num=100)
+        # change bbox color from cyan to green
+        fig = draw_corners3d(corners3d_aug, fig=fig, color=(0, 1, 0), max_num=100)
 
     if ref_boxes is not None and len(ref_boxes) > 0:
         ref_corners3d = boxes_to_corners_3d(ref_boxes)
@@ -307,10 +315,13 @@ def absxyz_2_spherexyz_np(points):
 
 def draw_spherical_voxels(point_xyz, color, opacity, draw_origin=True):
 
-    if not point_xyz:
-        return
+    # if not point_xyz:
+    #     return
     if not isinstance(point_xyz, np.ndarray):
-        point_xyz = point_xyz.cpu().numpy()
+        try:
+            point_xyz = point_xyz.cpu().numpy()
+        except:
+            return
     offset = np.array([-1.43, 0.0, -2.184])
     spherical_range = np.array([2.24, -40.6944, -16.5953125, 70.72, 40.6944, 4.0])
     # spherical_voxel_size = np.array([0.32, 0.5184, 0.4203125])

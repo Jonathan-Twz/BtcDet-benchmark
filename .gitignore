@@ -3,3 +3,5 @@
 /build/**
 **/*.pth
 **/*.pyc
+**/output/**
+**/output_old/**
