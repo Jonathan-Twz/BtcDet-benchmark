@@ -13,13 +13,14 @@ import pickle
 sys.path.append('../../btcdet/')
 from utils import coords_utils
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '3'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 # import tensorflow.compat.v1 as tf
 # tf.enable_eager_execution()
 
 # RGB
 clrs = {
-    'gt_points': (0.5, 0.5, 0.5),
+    # 'gt_points': (0.5, 0.5, 0.5),
+    'gt_points': (0.0, 0.0, 0.0),
     'bm_points': (1.0, 0.2, 0.2),
     'forepnts': (1.0, 0.2, 0.2),
     'voxels': (1, 0.8, 1),
@@ -41,9 +42,9 @@ clrs = {
     'drop_det_voxel_point': (0.4, 0, 0.7),
     'drop_det_point_xyz': (0.5, 0, 0.6),
 
-    "occ_fore_center": (1, 0.5, 0.5),
-    "occ_mirr_center": (0.8, 0.5, 0),
-    "occ_bm_center": (0.8, 0.8, 0),
+    "occ_fore_center": (1, 0, 0),
+    "occ_mirr_center": (0, 0, 1),
+    "occ_bm_center": (0, 1, 0),
     "occ_pos_center": (1.0, 0.4, 0), # (1.0, 0.2, 0.2), # ,
     "occ_neg_center": (0.2, 0.6, 0.8),
 
@@ -191,15 +192,15 @@ def main():
     # dict_keys(['gt_points', 'fore_gt_center', 'filter_center', 'boxvoxel_center', 'addpnt_view', 'drop_voxel_center','gt_boxes', 'pred_boxes', 'pred_scores', 'pred_labels', 'proboccpoints', 'ocp_center'])
 
     vu.visualize_pts(dict['gt_points'])
-    # keys = ["gt_points",'occ_fore_center', 'occ_mirr_center', 'occ_bm_center']
+    keys = ["gt_points",'occ_fore_center', 'occ_mirr_center', 'occ_bm_center']
     # keys = ["gt_points",'btc_miss_points', 'btc_self_points', 'btc_other_points']
-    keys = ["gt_points"]
+    # keys = ["gt_points"]
     # keys = ["gt_points", 'occ_center']
     # keys = ["gt_points", "general_cls_loss_center"] # gt_points
     # keys = ["gt_points", "fore_gt_center"] # gt_points
     # keys = ["gt_points", "bmvoxel_center"] # gt_points
 
-    voxel_point_keys = ["occ_pos_center"] # gt_points
+    # voxel_point_keys = ["occ_pos_center"] # gt_points
     # voxel_point_keys = ["general_cls_loss_center", "occ_pos_center"] # gt_points
     # voxel_point_keys = ["addpnt_view"] # gt_points
 
@@ -254,7 +255,8 @@ def main():
         print("frame_id", dict["frame_id"])
     if "augment_box_num" in dict and gt_boxes is not None:
         if dict['augment_box_num'][0] != 0:
-            aug_boxes = gt_boxes[-dict['augment_box_num'][0]:,...]
+            # aug_boxes = gt_boxes[-dict['augment_box_num'][0]:,...]
+            aug_boxes = gt_boxes
             gt_boxes = gt_boxes[:-dict['augment_box_num'][0],...]
             print("aug_boxes ", aug_boxes.shape)
         print("gt_boxes ", gt_boxes.shape)

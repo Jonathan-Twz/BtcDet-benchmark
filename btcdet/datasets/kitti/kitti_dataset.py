@@ -536,7 +536,7 @@ if __name__ == '__main__':
     import yaml
     from pathlib import Path
     from easydict import EasyDict
-    dataset_cfg = EasyDict(yaml.load(open(sys.argv[2])))
+    dataset_cfg = EasyDict(yaml.load(open(sys.argv[2]), Loader=yaml.FullLoader))
     ROOT_DIR = (Path(__file__).resolve().parent / '../../../').resolve()
     print("ROOT_DIR", ROOT_DIR)
     path = ROOT_DIR / 'data' / 'kitti' / 'detection3d'

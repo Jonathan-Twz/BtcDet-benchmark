@@ -1,4 +1,7 @@
 **/build/**
 /data/**
-**/**.pth
-**/**.pyc
+/build/**
+**/*.pth
+**/*.pyc
+**/output/**
+**/output_old/**

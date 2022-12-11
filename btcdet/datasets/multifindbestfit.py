@@ -7,7 +7,7 @@ import numpy as np
 from skimage import io
 import mayavi.mlab as mlab
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 from ..ops.roiaware_pool3d import roiaware_pool3d_utils
 from ..utils import box_utils, calibration_kitti, common_utils, object3d_kitti, point_box_utils
 from .dataset import DatasetTemplate
@@ -15,7 +15,7 @@ import torch
 from sklearn.manifold import TSNE
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
-sys.path.append('/home/xharlie/dev/occlusion_pcd/tools/visual_utils')
+sys.path.append('/media/jonathan/temp/BtcDet-benchmark/tools/visual_utils')
 import visualize_utils as vu
 from PIL import ImageColor
 from ..ops.chamfer_distance import ChamferDistance
@@ -41,7 +41,7 @@ def extract_allpnts(root_path=None, splits=['train','val'], type='Car', apply_mi
             gt_box = info['box3d_lidar']
             box_dims_lst.append(np.concatenate([np.zeros_like(gt_box[0:3]), np.array(gt_box[3:6]), np.zeros_like(gt_box[6:7])], axis=-1))
             all_db_infos_lst.append(info)
-            obj_pnt_fpath = "/home/xharlie/dev/occlusion_pcd/data/kitti/detection3d/" + info['path']
+            obj_pnt_fpath = "/media/jonathan/temp/BtcDet-benchmark/data/kitti/detection3d/" + info['path']
             car_pnts = get_normalized_cloud(str(obj_pnt_fpath), gt_box, bottom=0.15)[:,:3]
             mirrored_car_pnts = mirror(car_pnts)
             pnts_lst.append(car_pnts)
