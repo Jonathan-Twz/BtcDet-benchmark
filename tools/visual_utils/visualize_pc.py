@@ -191,10 +191,10 @@ def main():
 
     # dict_keys(['gt_points', 'fore_gt_center', 'filter_center', 'boxvoxel_center', 'addpnt_view', 'drop_voxel_center','gt_boxes', 'pred_boxes', 'pred_scores', 'pred_labels', 'proboccpoints', 'ocp_center'])
 
-    vu.visualize_pts(dict['gt_points'])
+    # vu.visualize_pts(dict['gt_points']) # plot black background figures
     keys = ["gt_points",'occ_fore_center', 'occ_mirr_center', 'occ_bm_center']
+    # keys = ["gt_points"] # original point cloud
     # keys = ["gt_points",'btc_miss_points', 'btc_self_points', 'btc_other_points']
-    # keys = ["gt_points"]
     # keys = ["gt_points", 'occ_center']
     # keys = ["gt_points", "general_cls_loss_center"] # gt_points
     # keys = ["gt_points", "fore_gt_center"] # gt_points
@@ -287,7 +287,9 @@ def main():
     # ref_scores = dict["roi_scores"] if "roi_scores" in dict else None
     # ref_labels = np.ones_like(ref_boxes[...,0], dtype=np.int)
     ref_ious = dict["iou"] if "iou" in dict else None
-    vu.draw_scenes_multi(points_lst, colors_lst, scales_lst, mode_lst, gt_boxes=None, aug_boxes=aug_boxes, ref_boxes=ref_boxes, ref_scores=ref_scores, ref_labels=ref_labels, ref_ious=ref_ious, voxelpnts_lst=voxelpnts_lst, voxelpnts_colors_lst=voxelpnts_colors_lst, voxelpnts_op_lst=voxelpnts_op_lst, axis=False)
+    # aug_boxes = None # close green boxes
+    # gt_boxes = None # close blue boxes
+    vu.draw_scenes_multi(points_lst, colors_lst, scales_lst, mode_lst, gt_boxes=gt_boxes, aug_boxes=aug_boxes, ref_boxes=ref_boxes, ref_scores=ref_scores, ref_labels=ref_labels, ref_ious=ref_ious, voxelpnts_lst=voxelpnts_lst, voxelpnts_colors_lst=voxelpnts_colors_lst, voxelpnts_op_lst=voxelpnts_op_lst, axis=False)
 
     mlab.view(azimuth=159, elevation=75.0, distance=104.0, roll=93.5)
     # points_lst[1] = points_lst[1][-27:,:]
